@@ -26,6 +26,28 @@
 #include <time.h>
 
 
+char *strrtab( char *str )
+{  
+      char ptr[strlen(str)+1];
+      int  maxcp = strlen( str ) -1;
+      int i,j=0;
+      for( i=0; str[i]!='\0'; i++)
+      {
+         if ( (  i == maxcp )  &&  ( str[i] == '|' ) )
+           ptr[j++]=' ';
+         else if ( str[i] == '|' ) 
+           ptr[j++]='&';
+         else if ( str[i] != '\n' ) 
+           ptr[j++]=str[i];
+      } 
+      ptr[j]='\0';
+      size_t siz = sizeof ptr ; 
+      char *r = malloc( sizeof ptr );
+      return r ? memcpy(r, ptr, siz ) : NULL;
+}
+
+
+
 char *strrdc( char *str, int increm)
 {  // seems to work
       char ptr[strlen(str)+1];
@@ -168,11 +190,26 @@ void readfileline( char *fileoutput , char *filesource )
                fputs( "\n" , target);
              }
 
+             else if ( lline[ 0 ] == '|' ) 
+             { // table
+               fputs(  strrtab( strrdc(   lline, 1 ) ) , target);
+               fputs( "\\" , target); 
+               fputs( "\\" , target);
+               fputs( "\n" , target);
+             }
+
              else if ( ( lline[ 0 ] == '-' )  &&  ( lline[ 1 ] == ' ' ) )
-             { // item
+             { // add a minus
                fputs( lline , target);
                fputs( "\\" , target); 
                fputs( "\\" , target);
+               fputs( "\n" , target);
+             }
+
+             else if ( ( lline[ 0 ] == '*' )  &&  ( lline[ 1 ] == ' ' ) )
+             { // itemize
+               fputs( "\\item " , target);
+               fputs( strrdc( lline, 2 ) , target);
                fputs( "\n" , target);
              }
 
