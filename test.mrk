@@ -1,0 +1,66 @@
+
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{grffile}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{cite}
+\begin{document}
+
+# Introduction
+===============
+This is the introduction.
+  It is also possible to insert %, & ampersand, < and >.
+
+# Methods
+## Computer
+//\cite{ref3242342, ref323423}
+It is 
+> as follows: 
+- bullet 1
+- bullet 2 (on line)
+- bullet 3
+
+# Conclusions 
+This study allows ....
+> It was found:
+\begin{itemize}
+* text item
+text
+* text
+* text item
+text
+* text
+* text item
+text
+* text
+\end{itemize}
+
+
+\noindent
+> {\bf Acknowledgements}
+Text 
+Text 
+Text 
+
+
+ Table 1 - ... 
+
+\begin{tabular}{ | l | c | c    | c   | c    |   c  |  c    |   c   | }
+\hline
+|     Reference  | C | C   | C | C   |  C   |C   |  C |
+\hline
+|     Reference  | C | C   | C | C   |  C   |C   |  C |
+\hline
+|     Reference  | C | C   | C | C   |  C   |C   |  C |
+\hline
+|     Reference  | C | C   | C | C   |  C   |C   |  C |
+\hline
+\end{tabular}
+
+//\bibliography{mybib}{}
+//\bibliographystyle{ieeetr}
+\end{document}
+!EOF
+
