@@ -26,14 +26,14 @@
 #include <time.h>
 
 
-char *strrdc(char *str)
+char *strrdc( char *str, int increm)
 {  // seems to work
       char ptr[strlen(str)+1];
       int i,j=0;
       for( i=0; str[i]!='\0'; i++)
       {
          if ( str[i] != '\n' ) 
-          if ( i >= 1 )
+          if ( i >= increm )
            ptr[j++]=str[i];
       } 
       ptr[j]='\0';
@@ -152,19 +152,38 @@ void readfileline( char *fileoutput , char *filesource )
              if ( area_archive == 0 )
              if ( export_skip == 0 )
              if (  ( lline[ 0 ] == '/' ) && ( lline[ 1 ] == '/' )  )
-             {
                    printf( "Rem : do nothing.\n" );
-             }
+
+             else if (  ( lline[ 0 ] == '=' ) && ( lline[ 1 ] == '=' )  &&  ( lline[ 2 ] == '=' ) && ( lline[ 3 ] == '=' )  && ( lline[ 4 ] == '=' ) && ( lline[ 5 ] == '=' )  )
+                   printf( "Rem : do nothing.\n" );
+
+             else if (  ( lline[ 0 ] == '-' ) && ( lline[ 1 ] == '-' )  &&  ( lline[ 2 ] == '-' ) && ( lline[ 3 ] == '-' )  && ( lline[ 4 ] == '-' ) && ( lline[ 5 ] == '-' )  )
+                   printf( "Rem : do nothing.\n" );
+
              else if ( ( lline[ 0 ] == '-' )  &&  ( lline[ 1 ] == ' ' ) )
              {
-               fputs( strrdc( lline ) , target);
+               fputs( strrdc( lline, 2 ) , target);
                fputs( "\\" , target); 
                fputs( "\\" , target);
                fputs( "\n" , target);
              }
+
+             else if ( ( lline[ 0 ] == '#' )  &&  ( lline[ 1 ] == ' ' ) )
+             {
+               fputs( "\\section{" , target);
+               fputs( strrdc( lline, 2 ) , target);
+               fputs( "}\n" , target); 
+             }
+             else if ( ( lline[ 0 ] == '#' )  &&  ( lline[ 1 ] == '#' )  &&  ( lline[ 2 ] == ' ' )    )
+             {
+               fputs( "\\subsection{" , target);
+               fputs( strrdc( lline , 3) , target);
+               fputs( "}\n" , target); 
+             }
+
              else if ( ( lline[ 0 ] == '>' )  &&  ( lline[ 1 ] == ' ' ) )
              {
-               fputs( strrdc( lline ) , target);
+               fputs( strrdc( lline, 2 ) , target);
                fputs( "\\" , target); 
                fputs( "\\" , target);
                fputs( "\n" , target);
