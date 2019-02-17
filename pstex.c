@@ -160,9 +160,17 @@ void readfileline( char *fileoutput , char *filesource )
              else if (  ( lline[ 0 ] == '-' ) && ( lline[ 1 ] == '-' )  &&  ( lline[ 2 ] == '-' ) && ( lline[ 3 ] == '-' )  && ( lline[ 4 ] == '-' ) && ( lline[ 5 ] == '-' )  )
                    printf( "Rem : do nothing.\n" );
 
-             else if ( ( lline[ 0 ] == '-' )  &&  ( lline[ 1 ] == ' ' ) )
-             {
+             else if ( ( lline[ 0 ] == '>' )  &&  ( lline[ 1 ] == ' ' ) )
+             { // linefeed
                fputs( strrdc( lline, 2 ) , target);
+               fputs( "\\" , target); 
+               fputs( "\\" , target);
+               fputs( "\n" , target);
+             }
+
+             else if ( ( lline[ 0 ] == '-' )  &&  ( lline[ 1 ] == ' ' ) )
+             { // item
+               fputs( lline , target);
                fputs( "\\" , target); 
                fputs( "\\" , target);
                fputs( "\n" , target);
@@ -181,13 +189,6 @@ void readfileline( char *fileoutput , char *filesource )
                fputs( "}\n" , target); 
              }
 
-             else if ( ( lline[ 0 ] == '>' )  &&  ( lline[ 1 ] == ' ' ) )
-             {
-               fputs( strrdc( lline, 2 ) , target);
-               fputs( "\\" , target); 
-               fputs( "\\" , target);
-               fputs( "\n" , target);
-             }
              else
              {
                fputs( lline , target);
